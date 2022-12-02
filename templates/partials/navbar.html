@@ -1,8 +1,12 @@
 <nav class="navbar navbar-dark bg-primary mb-4">
     <div class="container">
         {% if user.is_authenticated %}
-            <a class="navbar-brand" style="font-weight: bold;" href="#">Welcome, {{user.username}}!</a>
-            <a class="navbar-brand float-right" style="font-weight: bold;" href="#">Logout</a>
+            {% if user.first_name and user.last_name %}
+                <a class="navbar-brand" style="font-weight: bold;" href="#">{{user.first_name}} {{ user.last_name }}</a>
+            {% else %}
+                <a class="navbar-brand" style="font-weight: bold;" href="#">{{user.username|capfirst}}</a>
+            {% endif %}
+            <a class="navbar-brand float-right" style="font-weight: bold;" href="{% url 'account:logout' %}">Logout</a>
         {% else %}
             <a class="navbar-brand" style="font-weight: bold;" href="/">Main Page</a>
         {% endif %}

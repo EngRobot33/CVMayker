@@ -1,10 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-</body>
-</html>
+{% block title %} | HR Login{% endblock %}
+
+{% block content %}
+
+{% load crispy_forms_tags %}
+
+<div class ="card text-center">
+    <div class ="card-body">
+        <h1><strong>HR Log In</strong></h1><br>
+
+  <form method="POST">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <br>
+    <button class="btn btn-primary" type="submit">Log In</button>
+  </form>
+
+    </div>
+</div>
+
+{% endblock %}
