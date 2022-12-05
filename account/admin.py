@@ -13,7 +13,7 @@ class JobSeekerAdmin(admin.ModelAdmin):
     list_display = ('first_name', 'last_name', 'email', 'phone_number', 'get_skill', 'project')
 
     def get_skill(self, obj):
-        return [skill.title for skill in obj.skill.all()]
+        return [skill.title for skill in obj.skills.all()]
 
 
 admin.site.register(JobSeeker, JobSeekerAdmin)
