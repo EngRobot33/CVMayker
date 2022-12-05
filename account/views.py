@@ -4,7 +4,8 @@ from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.shortcuts import render, redirect
 
-from .forms import LoginForm
+from .forms import *
+from .models import *
 
 
 def index(request):
@@ -13,7 +14,8 @@ def index(request):
 
 @login_required
 def panel(request):
-    return render(request, 'cvmaker/panel.html')
+    jobseekers = JobSeeker.objects.all()
+    return render(request, 'cvmaker/panel.html', {'jobseekers': jobseekers})
 
 
 def login(request):

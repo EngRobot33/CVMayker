@@ -45,6 +45,7 @@ class Skill(models.Model):
 
 class Project(models.Model):
     title = models.CharField(max_length=64, verbose_name=_('name'), unique=True)
+    link = models.URLField(verbose_name=_('link'), default='')
 
     def __str__(self):
         return f'{self.title}'
