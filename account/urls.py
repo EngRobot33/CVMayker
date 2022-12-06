@@ -8,4 +8,5 @@ urlpatterns = [
     path('login/', login, name='login'),
     path('logout/', logout, name='logout'),
     path('panel/', panel, name='panel'),
+    path('export_excel/', export_excel, name='export-excel'),
 ]

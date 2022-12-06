@@ -30,6 +30,7 @@
             </tr>
         {% endfor %}
     </table>
+        <a href="{% url 'account:export-excel' %}" class="btn btn-success"><strong>Export Excel</strong></a>
     {% else %}
         <h3>There is no job-seeker yet!</h3>
     {% endif %}
