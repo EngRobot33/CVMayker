@@ -2,6 +2,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
+from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.utils import timezone
@@ -84,3 +85,18 @@ def export_excel(request):
 
     return response
 
+
+@login_required()
+def search_result(request):
+    if request.method == "POST":
+        searched = request.POST['searched']
+        jobseekers = JobSeeker.objects.filter(Q(first_name__icontains=searched)|
+                                              Q(last_name__icontains=searched)|
+                                              Q(email__icontains=searched)|
+                                              Q(phone_number__icontains=searched)|
+                                              Q(skills__title__icontains=searched)|
+                                              Q(project__title__icontains=searched)
+                                              ).distinct()
+        return render(request, 'cvmaker/search_result.html', {'searched': searched, 'jobseekers': jobseekers})
+    else:
+        return render(request, 'cvmaker/search_result.html', {})

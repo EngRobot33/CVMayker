@@ -9,4 +9,5 @@ urlpatterns = [
     path('logout/', logout, name='logout'),
     path('panel/', panel, name='panel'),
     path('export_excel/', export_excel, name='export-excel'),
+    path('search_result/', search_result, name='search-result'),
 ]

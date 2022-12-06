@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %} | Search Result{% endblock %}
+
+{% block content %}
+    {% if searched %}
+        <h1>You have searched for <strong>{{ searched }}</strong></h1>
+        <br>
+            <table style="text-align: center" class="table">
+                {% if jobseekers %}
+                    <tr style="background-color: #ffc107">
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>E-mail</th>
+                        <th>Phone Number</th>
+                        <th>Skills</th>
+                        <th>Projects</th>
+                    </tr>
+                    {% for js in jobseekers %}
+                        <tr>
+                            <th>{{ js.first_name }}</th>
+                            <th>{{ js.last_name }}</th>
+                            <th><a href="mailto:{{ js.email }}">{{ js.email }}</a></th>
+                            <th><a href="tel:{{ js.phone_number }}">{{ js.phone_number }}</a></th>
+                            <th>
+                                {% for skill in js.skills.all %}
+                                    {{ skill.title }}
+                                {% endfor %}
+                            </th>
+                            <th><a href="{{ js.project.link }}">{{ js.project }}</a></th>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                {% endif %}
+            </table>
+    {% else %}
+        <p><h1>Hey! You forgot to search for a job-seeker</h1></p>
+    {% endif %}
+    <p>
+    <a href="{% url 'account:panel' %}" class="btn btn-primary"><strong>Back to Main Panel</strong></a>
+    </p>
+{% endblock %}

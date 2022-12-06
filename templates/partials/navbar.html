@@ -2,11 +2,12 @@
     <div class="container">
         {% if user.is_authenticated %}
             {% if user.first_name and user.last_name %}
-                <a class="navbar-brand" style="font-weight: bold;" href="#">{{user.first_name}} {{ user.last_name }}</a>
+                <a class="navbar-brand" style="font-weight: bold;" href="/">{{ user.first_name|capfirst }} {{ user.last_name|capfirst }}</a>
             {% else %}
-                <a class="navbar-brand" style="font-weight: bold;" href="#">{{user.username|capfirst}}</a>
+                <a class="navbar-brand" style="font-weight: bold;" href="/">{{ user.username|capfirst }}</a>
             {% endif %}
-            <a class="navbar-brand float-right" style="font-weight: bold;" href="{% url 'account:logout' %}">Logout</a>
+            <a class="btn btn-danger" style="font-weight: bold;" href="{% url 'account:logout' %}">Logout</a>
+            </form>
         {% else %}
             <a class="navbar-brand" style="font-weight: bold;" href="/">Main Page</a>
         {% endif %}
