@@ -16,11 +16,11 @@
     <br>
     <table style="text-align: center" class="table">
     {% if jobseekers %}
-        <tr style="background-color: #0275d8">
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>E-mail</th>
-            <th>Phone Number</th>
+        <tr style="background-color: #0275d8; color: white;">
+            <th><a href="{% url 'account:sort' 'first_name' %}" style="color: white">First Name</a></th>
+            <th><a href="{% url 'account:sort' 'last_name' %}" style="color: white">Last Name</a></th>
+            <th><a href="{% url 'account:sort' 'email' %}" style="color: white">E-mail</a></th>
+            <th><a href="{% url 'account:sort' 'phone_number' %}" style="color: white">Phone Number</a></th>
             <th>Skills</th>
             <th>Projects</th>
         </tr>

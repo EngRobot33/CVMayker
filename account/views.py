@@ -19,7 +19,7 @@ def index(request):
 
 @login_required
 def panel(request):
-    jobseekers = JobSeeker.objects.all()
+    jobseekers = JobSeeker.objects.all().order_by('first_name', 'last_name')
     return render(request, 'cvmaker/panel.html', {'jobseekers': jobseekers})
 
 
@@ -100,3 +100,9 @@ def search_result(request):
         return render(request, 'cvmaker/search_result.html', {'searched': searched, 'jobseekers': jobseekers})
     else:
         return render(request, 'cvmaker/search_result.html', {})
+
+
+@login_required()
+def sort(request, field):
+    jobseekers = JobSeeker.objects.all().order_by(field)
+    return render(request, 'cvmaker/panel.html', {'jobseekers': jobseekers})
