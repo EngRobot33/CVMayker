@@ -7,7 +7,7 @@
     <br>
     <form class="d-flex" method="POST" action="{% url 'account:search-result' %}"> {% csrf_token %}
               <div class="input-group">
-                <input type="text" class="form-control" name="searched">
+                <input type="text" class="form-control" name="searched" placeholder="Search Job-seekers">
                 <div class="input-group-btn">
                   <button class="btn btn-warning" type="submit"><strong>Search</strong></button>
                 </div>

@@ -7,14 +7,17 @@
 {% load crispy_forms_tags %}
 
 <div class ="card text-center">
+    <div class="card-header">
+        <h1><strong>CVMayker</strong></h1>
+    </div>
     <div class ="card-body">
-        <h1><strong>HR Log In</strong></h1><br>
+        <h2><strong>HR Log-In</strong></h2><br>
 
   <form method="POST">
     {% csrf_token %}
     {{ form|crispy }}
     <br>
-    <button class="btn btn-primary" type="submit"><strong>Log In</strong></button>
+    <button class="btn btn-primary" type="submit"><strong>Log-In</strong></button>
   </form>
 
     </div>

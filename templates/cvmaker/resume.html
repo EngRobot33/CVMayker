@@ -7,20 +7,30 @@
     {% load crispy_forms_tags %}
 
     <div class ="card text-center">
+        <div class="card-header">
+            <h1><strong>CVMayker</strong></h1>
+        </div>
         <div class ="card-body">
-            <h1><strong>Make CV</strong></h1><br>
+            <h2><strong>Make CV</strong></h2><br>
             <form method="POST" enctype="multipart/form-data"> {% csrf_token %}
-                {{ form|crispy }}
+                {{ jobseeker_form|crispy }}
                 <br>
                 <p><a href="{% url 'account:create-skill' %}" class="btn btn-primary">
                     <strong>Create new skill</strong></a></p>
                 <br><br>
-                <h3><strong>Project</strong></h3><br>
-                <p>{{ formset }}</p>
+                <h4><strong>Project</strong></h4><br>
+                <p>{{ project_form }}</p>
                <br>
                <button class="btn btn-success" type="submit" ><strong>Send</strong></button>
             </form>
         </div>
+        {% if messages %}
+            {% for msg in messages %}
+                <div class="alert alert-{{ message.tags }} alert-rounded">
+                    {{ msg|safe }}
+                </div>
+            {% endfor %}
+        {% endif %}
     </div>
 
 {% endblock %}
