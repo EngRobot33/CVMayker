@@ -13,6 +13,9 @@ class JobSeekerAdmin(admin.ModelAdmin):
     list_display = ('first_name', 'last_name', 'email', 'phone_number', 'get_skill', 'project')
 
     def get_skill(self, obj):
+        """
+        Get all skills of the job-seeker
+        """
         return [skill.title for skill in obj.skills.all()]
 
 

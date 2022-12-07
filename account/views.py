@@ -16,16 +16,25 @@ import xlwt
 
 
 def index(request):
+    """
+    View of the main page
+    """
     return render(request, 'cvmaker/index.html')
 
 
 @login_required
 def panel(request):
+    """
+    View of the HR panel
+    """
     jobseekers = JobSeeker.objects.all().order_by('first_name', 'last_name')
     return render(request, 'cvmaker/panel.html', {'jobseekers': jobseekers})
 
 
 def login(request):
+    """
+    View of the HR log-in
+    """
     if request.method == "POST":
         form = LoginForm(request.POST)
 
@@ -58,6 +67,9 @@ def logout(request):
 
 @login_required
 def export_excel(request):
+    """
+    View for exporting job-seekers data in xls file
+    """
     response = HttpResponse(content_type='application/ms-excel')
     response['Content-Disposition'] = 'attachment; filename=Job-seekers' + \
         str(timezone.now()) + '.xls'
@@ -90,6 +102,9 @@ def export_excel(request):
 
 @login_required()
 def search_result(request):
+    """
+    View for showing the search result
+    """
     if request.method == "POST":
         searched = request.POST['searched']
         jobseekers = JobSeeker.objects.filter(Q(first_name__icontains=searched)|
@@ -106,12 +121,18 @@ def search_result(request):
 
 @login_required()
 def sort(request, field):
+    """
+    View for sorting the job-seekers data in HR panel
+    """
     jobseekers = JobSeeker.objects.all().order_by(field)
     return render(request, 'cvmaker/panel.html', {'jobseekers': jobseekers})
 
 
 @logout_required()
 def resume(request):
+    """
+    View for filling out the resume form
+    """
     project_form = ProjectForm()
     jobseeker_form = JobSeekerForm()
     if request.method == "POST":
@@ -145,6 +166,9 @@ def resume(request):
 
 @logout_required()
 def create_skill(request):
+    """
+    View for creating a new skill
+    """
     form = SkillCreateForm()
     if request.method == "POST":
         form = SkillCreateForm(request.POST)
