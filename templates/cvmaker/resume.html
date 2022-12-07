@@ -4,4 +4,23 @@
 
 {% block content %}
 
+    {% load crispy_forms_tags %}
+
+    <div class ="card text-center">
+        <div class ="card-body">
+            <h1><strong>Make CV</strong></h1><br>
+            <form method="POST" enctype="multipart/form-data"> {% csrf_token %}
+                {{ form|crispy }}
+                <br>
+                <p><a href="{% url 'account:create-skill' %}" class="btn btn-primary">
+                    <strong>Create new skill</strong></a></p>
+                <br><br>
+                <h3><strong>Project</strong></h3><br>
+                <p>{{ formset }}</p>
+               <br>
+               <button class="btn btn-success" type="submit" ><strong>Send</strong></button>
+            </form>
+        </div>
+    </div>
+
 {% endblock %}

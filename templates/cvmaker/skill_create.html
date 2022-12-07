@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %} | Create Skill{% endblock %}
+
+{% block content %}
+
+    {% load crispy_forms_tags %}
+
+    <div class ="card text-center">
+        <div class ="card-body">
+            <h1><strong>Create Skill</strong></h1><br>
+            <form method="POST" enctype="multipart/form-data"> {% csrf_token %}
+                {{ form|crispy }}
+                <br>
+               <button class="btn btn-success" type="submit" ><strong>Create</strong></button>
+            </form>
+            <p>
+                <a href="{% url 'account:resume' %}" class="btn btn-primary"><strong>Return to CV page</strong></a>
+            </p>
+        </div>
+    </div>
+
+{% endblock %}

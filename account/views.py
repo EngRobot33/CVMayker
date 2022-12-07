@@ -1,9 +1,9 @@
+from django.contrib import messages
 from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.db.models import Q
-from django.forms import formset_factory
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.utils import timezone
@@ -112,26 +112,31 @@ def sort(request, field):
 
 @logout_required()
 def resume(request):
+    project_form = ProjectForm()
+    jobseeker_form = JobSeekerForm()
     if request.method == "POST":
-        form = JobSeekerForm(request.POST)
+        project_form = ProjectForm(request.POST)
 
-        if form.is_valid():
+        if project_form.is_valid():
             pass
         else:
-            return render(request, 'cvmaker/resume.html', {'form': form})
-    else:
-        form = JobSeekerForm()
+            return render(request, 'cvmaker/resume.html', {'form': jobseeker_form, 'formset': project_form})
 
-    return render(request, 'cvmaker/resume.html', {'form': form})
+    return render(request, 'cvmaker/resume.html', {'form': jobseeker_form, 'formset': project_form})
 
 
-def multiple_projects(request):
-    ProjectFormSet = formset_factory(ProjectForm, extra=3)
-    if request.method == 'POST':
-        formset = ProjectFormSet(request.POST)
-        if formset.is_valid():
-            pass
-    else:
-        formset = ProjectFormSet()
+@logout_required()
+def create_skill(request):
+    form = SkillCreateForm()
+    if request.method == "POST":
+        form = SkillCreateForm(request.POST)
 
-    return render(request, 'cvmaker/resume.html', {'formset': formset})
+        if form.is_valid():
+            skill = Skill()
+            skill.title = form.cleaned_data['title']
+            skill.save()
+            messages.success(request, 'Your skill added successfully.')
+        else:
+            render(request, 'cvmaker/skill_create.html', {'form': form})
+
+    return render(request, 'cvmaker/skill_create.html', {'form': form})
