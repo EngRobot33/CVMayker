@@ -11,4 +11,6 @@ urlpatterns = [
     path('export_excel/', export_excel, name='export-excel'),
     path('search_result/', search_result, name='search-result'),
     path('panel/sort/<str:field>', sort, name='sort'),
+    path('projects/', multiple_projects, name='multiple-projects'),
+    path('resume/', resume, name='resume'),
 ]

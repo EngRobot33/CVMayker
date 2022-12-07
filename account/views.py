@@ -3,12 +3,14 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.db.models import Q
+from django.forms import formset_factory
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.utils import timezone
 
 from .forms import *
 from .models import *
+from utils.decorators import logout_required
 
 import xlwt
 
@@ -106,3 +108,30 @@ def search_result(request):
 def sort(request, field):
     jobseekers = JobSeeker.objects.all().order_by(field)
     return render(request, 'cvmaker/panel.html', {'jobseekers': jobseekers})
+
+
+@logout_required()
+def resume(request):
+    if request.method == "POST":
+        form = JobSeekerForm(request.POST)
+
+        if form.is_valid():
+            pass
+        else:
+            return render(request, 'cvmaker/resume.html', {'form': form})
+    else:
+        form = JobSeekerForm()
+
+    return render(request, 'cvmaker/resume.html', {'form': form})
+
+
+def multiple_projects(request):
+    ProjectFormSet = formset_factory(ProjectForm, extra=3)
+    if request.method == 'POST':
+        formset = ProjectFormSet(request.POST)
+        if formset.is_valid():
+            pass
+    else:
+        formset = ProjectFormSet()
+
+    return render(request, 'cvmaker/resume.html', {'formset': formset})
