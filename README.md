@@ -1,6 +1,6 @@
 # CVMayker
 - CVMayker is a django app which job-seekers can make their CVs and send them to HRs.
-- HRs are also capable to check the received CVs in their panel.
+- HRs are also capable to check the received CVs in their panel, search through them and get Excel output (.xls).
 
 ## Installation guide, step by step:
 
